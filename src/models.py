@@ -38,8 +38,8 @@ class Contributor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='contributor')
     permission_choices = [
-        ('contributor', 'Contributeur'),
-        ('author', 'Autheur'),
+        ('contributor', 'Contributor'),
+        ('author', 'Author'),
     ]
     permission = models.CharField(choices=permission_choices, max_length=20)
     role = models.CharField(max_length=30)
@@ -55,8 +55,8 @@ class Issue(models.Model):
         ('task', 'Tâche')
     ]
     status_choices = [
-        ('to-do', 'A faire'),
-        ('on-proces', 'En cours'),
+        ('to_do', 'A faire'),
+        ('on_proces', 'En cours'),
         ('done', 'Terminé')
     ]
     priority_choices = [
@@ -69,8 +69,8 @@ class Issue(models.Model):
     tag = models.CharField(max_length=20, choices=tag_choices)
     priority = models.CharField(max_length=20, choices=priority_choices)
     status = models.CharField(max_length=20, choices=status_choices)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_issue')
-    assignee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assignee')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_issue', null=True, blank=True)
+    assignee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assignee', null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     created = models.DateField(auto_now=True)
 
@@ -80,8 +80,8 @@ class Issue(models.Model):
 
 class Comment(models.Model):
     description = models.TextField(max_length=500)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_comment')
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_comment',  null=True, blank=True)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE,  null=True, blank=True)
     created = models.DateField(auto_now=True)
 
     def __str__(self):

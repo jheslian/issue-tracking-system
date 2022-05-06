@@ -18,28 +18,14 @@ from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from src.views import ProjectView, ProjectDetailView, ContributorView, ContributorDetailView, IssueView, \
-    IssueDetailView, CommentsView, CommentDetailView, RegisterUser
+    IssueDetailView, CommentsView, CommentDetailView
 
-
-router = SimpleRouter()
-router.register('signup', RegisterUser, basename='signup'),
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    #path('signup/', RegisterUser.as_view()),
-    #path('logout/', logout),
-    path('project/', ProjectView.as_view(), name='project'),
-    path('project/<int:pk>', ProjectDetailView.as_view(), name='project-detail'),
-    path('project/<int:pk>/users/', ContributorView.as_view(), ),
-    path('project/<int:project_id>/users/<int:user_id>', ContributorDetailView.as_view(), ),
-    path('project/<int:pk>/issues/', IssueView.as_view(), ),
-    path('project/<int:project_id>/issues/<int:id>', IssueDetailView.as_view(), ),
-    path('project/<int:project_id>/issues/<int:issue_id>/comments/', CommentsView.as_view(), ),
-    path('project/<int:project_id>/issues/<int:issue_id>/comments/<int:id>', CommentDetailView.as_view(), ),
+    path('', include('authentication.urls')),
+    path('projects/', include('src.urls'))
 
-    path('', include(router.urls)),
 ]
 

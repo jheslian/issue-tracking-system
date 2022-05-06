@@ -8,11 +8,11 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ContributorAdmin(admin.ModelAdmin):
-    list_display = ('user', 'project')
+    list_display = ('user_id','user', 'project')
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('issue', 'author')
+    list_display = ('issue', 'description', 'author')
 
 
 class ProjectAdmin(admin.ModelAdmin):
