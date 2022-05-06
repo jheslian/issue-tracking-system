@@ -1,5 +1,5 @@
 
-# An issue tracker application for differents platforms (website, Android and iOS apps).
+# An issue tracker API for differents platforms (website, Android and iOS apps).
 
 ## Objectives:
 - The API basically allow users to create various projects, add users to specific projects, create issues within the projects, and assign labels to those issues based on their priorities, tags, and more.
