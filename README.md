@@ -2,7 +2,7 @@
 # An issue tracker application for differents platforms (website, Android and iOS apps).
 
 ## Objectives:
-- The app will basically allow users to create various projects, add users to specific projects, create issues within the projects, and assign labels to those issues based on their priorities, tags, and more.
+- The API basically allow users to create various projects, add users to specific projects, create issues within the projects, and assign labels to those issues based on their priorities, tags, and more.
 - The application is created with django rest framework with simpleJWT as a default authentication
 
 
@@ -19,7 +19,7 @@
 
 
 ## API Documentation:
-Check the documention how to use the API and some examples : [Issue Tacking API](https://documenter.getpostman.com/)
+Check the documention how to use the API and see some examples : [Issue Tacking API](https://documenter.getpostman.com/view/19593881/UyxdJoJT)
 
 
 ## Application environments:
