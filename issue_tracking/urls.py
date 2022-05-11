@@ -24,8 +24,8 @@ from src.views import ProjectView, ProjectDetailView, ContributorView, Contribut
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authentication.urls')),
-    path('projects/', include('src.urls'))
+    path('api/', include('authentication.urls')),
+    path('api/projects/', include('src.urls'))
 
 ]
 

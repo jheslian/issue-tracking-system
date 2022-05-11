@@ -4,7 +4,7 @@ from .models import User, Contributor, Comment, Project, Issue
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'last_name')
+    list_display = ('id', 'email', 'last_name')
 
 
 class ContributorAdmin(admin.ModelAdmin):
@@ -12,15 +12,15 @@ class ContributorAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('issue', 'description', 'author')
+    list_display = ('id','issue', 'description', 'author')
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description')
+    list_display = ('id','title', 'description')
 
 
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ('title', 'tag', 'priority')
+    list_display = ('id', 'project', 'title', 'tag', 'priority')
 
 
 admin.site.register(User, UserAdmin)

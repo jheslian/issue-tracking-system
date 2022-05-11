@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-
 from .serializers import RegisterUserSerializer
 from src.models import User
 from rest_framework_simplejwt.views import TokenObtainPairView

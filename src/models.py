@@ -1,6 +1,4 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from .manager import CustomUserManager
 
@@ -35,11 +33,11 @@ class Project(models.Model):
 
 
 class Contributor(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='contributor')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     permission_choices = [
-        ('contributor', 'Contributor'),
-        ('author', 'Author'),
+        ('contributor', 'Contributeur'),
+        ('author', 'Autheur'),
     ]
     permission = models.CharField(choices=permission_choices, max_length=20)
     role = models.CharField(max_length=30)
@@ -72,7 +70,7 @@ class Issue(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_issue', null=True, blank=True)
     assignee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assignee', null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    created = models.DateField(auto_now=True)
+    created_time = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -82,7 +80,7 @@ class Comment(models.Model):
     description = models.TextField(max_length=500)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_comment',  null=True, blank=True)
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE,  null=True, blank=True)
-    created = models.DateField(auto_now=True)
+    created_time = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.description
