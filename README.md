@@ -44,9 +44,10 @@ Check the documention how to use the API and see some examples : [Issue Tacking 
 	- ***environment name***\Scripts\activate.bat - ex: `env\Scripts\activate.bat`
 4. Install the packages with pip: `pip install -r requirements.txt`	
 5.  Migrate the tables to database:
-    for unix or macos: `python3 manage.py migrate`
-	for windows: `py manage.py migrate`
+	- for unix or macos: `python3 manage.py migrate`
+	- for windows: `py manage.py migrate`
 6. Run the program :
-	for unix or macos: `python3 manage.py runserver`
-	for windows: `py manage.py runserver`
+	- for unix or macos: `python3 manage.py runserver`
+	- for windows: `py manage.py runserver`
+	
 	***Note*** : The default port will open at 8000.
