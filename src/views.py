@@ -34,6 +34,13 @@ class ProjectView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     lookup_url_kwarg = 'project_id'
 
+    def get_queryset(self):
+        contributor = Contributor.objects.filter(user=self.request.user)
+        project_id_list = []
+        for user in contributor:
+            project_id_list.append(user.project_id)
+        return Project.objects.filter(id__in=project_id_list)
+
     def perform_create(self, serializer):
         serializer.save()
         return serializer
@@ -133,10 +140,10 @@ class IssueDetailView(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAP
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated, IsInProject, UserIssueActions]
     lookup_fields = ['project_id', 'id']
-    #lookup_url_kwarg = 'issue_id'
 
-    #def get_queryset(self):
+    # lookup_url_kwarg = 'issue_id'
 
+    # def get_queryset(self):
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
