@@ -23,6 +23,7 @@ class UserProjectActions(BasePermission):
                 return False
 
         except Contributor.DoesNotExist:
+            self.message = 'Access forbidden or this issue does not exist.'
             return False
         return True
 
@@ -90,6 +91,6 @@ class IsInProject(BasePermission):
             if instance:
                 return True
         except Contributor.DoesNotExist:
-            self.message = 'This project does not exist.'
+            self.message = 'Access forbidden or this issue does not exist.'
             return False
         return True

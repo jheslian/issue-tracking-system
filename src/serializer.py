@@ -5,7 +5,7 @@ from .models import User, Project, Contributor, Issue, Comment
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'last_name', 'first_name']
+        fields = ['id', 'email', 'last_name', 'first_name']
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -21,16 +21,13 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
     class Meta:
         model = Contributor
         fields = ['user', 'permission', 'role']
 
-    """def get_user(self, instance):
-        queryset = instance.user.all()
-        serializer = UserSerializer(queryset)
-        return serializer.data"""
+    def to_representation(self, instance):
+        self.fields['user'] = UserSerializer(read_only=True)
+        return super().to_representation(instance)
 
 
 class IssueSerializer(serializers.ModelSerializer):

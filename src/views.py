@@ -19,10 +19,8 @@ class MultipleFieldLookupMixin(object):
         queryset = self.filter_queryset(queryset)
         filter = {}
         for field in self.lookup_fields:
-            print(self.lookup_fields)
             if self.kwargs.get(field, None):
                 filter[field] = self.kwargs[field]
-                print("er", filter)
         obj = get_object_or_404(queryset, **filter)
         self.check_object_permissions(self.request, obj)
         return obj
@@ -40,10 +38,6 @@ class ProjectView(generics.ListCreateAPIView):
         for user in contributor:
             project_id_list.append(user.project_id)
         return Project.objects.filter(id__in=project_id_list)
-
-    def perform_create(self, serializer):
-        serializer.save()
-        return serializer
 
     def create(self, request, *args, **kwargs):
         super().create(request, *args, **kwargs)
@@ -104,16 +98,17 @@ class ContributorView(generics.ListCreateAPIView):
                         status=status.HTTP_201_CREATED, headers=headers)
 
 
-class ContributorDetailView(generics.DestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class ContributorDetailView(MultipleFieldLookupMixin, generics.DestroyAPIView):
+    queryset = Contributor.objects.all()
+    serializer_class = ContributorSerializer
     permission_classes = [IsAuthenticated, IsInProject]
+    lookup_fields = ['project_id', 'user_id']
     lookup_url_kwarg = 'user_id'
 
     def destroy(self, request, *args, **kwargs):
-        user = self.get_object()
-        self.perform_destroy(user)
-        return Response({"message": f"User {user.user.last_name} has been deleted."}, status=201)
+        contributor = self.get_object()
+        self.perform_destroy(contributor)
+        return Response({"message": f"User {contributor.user.last_name} has been deleted."}, status=201)
 
 
 class IssueView(generics.ListCreateAPIView):
